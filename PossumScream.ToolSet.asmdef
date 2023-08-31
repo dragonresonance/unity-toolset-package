@@ -1,0 +1,16 @@
+{
+    "name": "ToolSet",
+    "rootNamespace": "PossumScream",
+    "references": [
+        "GUID:b78f24bf1f52eab40801822f1fb060da"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
