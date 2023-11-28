@@ -35,13 +35,13 @@ namespace PossumScream.Editor.Optimization
 
 
 						if (checkForAllZeroScale(transformLocalScale)) {
-							HLogger.LogInfo($"Has an <color={HLogger.InfoColor}><b>all-zero</b></color> scale", transform);
+							HLogger.LogInfo($"Has an <color={HLogger.Severity.INFO}><b>all-zero</b></color> scale", transform);
 							allZeroScaleCount++;
 							continue;
 						}
 
 						if (!checkForAllOneScale(transformLocalScale)) {
-							HLogger.LogWarning($"Has a <color={HLogger.WarningColor}><b>troublesome</b></color> scale <b>→ [ x:<color={HLogger.WarningColor}>{transformLocalScale.x}</color>, y:<color={HLogger.WarningColor}>{transformLocalScale.y}</color>, z:<color={HLogger.WarningColor}>{transformLocalScale.z}</color> ]</b>", transform);
+							HLogger.LogWarning($"Has a <color={HLogger.Severity.WARN}><b>troublesome</b></color> scale <b>→ [ x:<color={HLogger.Severity.WARN}>{transformLocalScale.x}</color>, y:<color={HLogger.Severity.WARN}>{transformLocalScale.y}</color>, z:<color={HLogger.Severity.WARN}>{transformLocalScale.z}</color> ]</b>", transform);
 							troublesomeScaleCount++;
 							continue;
 						}
@@ -97,7 +97,7 @@ namespace PossumScream.Editor.Optimization
 /*        /_/    \____/____/____/\____/_/ /_/ /_/____/\___/_/   \___/\__/_/_/ /_/ /__\        */
 /*                                                                                            */
 /*        Licensed under the Apache License, Version 2.0. See LICENSE.md for more info        */
-/*        David Tabernero M. @ PossumScream                      Copyright © 2021-2023        */
+/*        David Tabernero M. @ PossumScream                      Copyright © 2021-2024        */
 /*        GitLab - GitHub: possumscream                            All rights reserved        */
-/*        -------------------------                                  -----------------        */
+/*        - - - - - - - - - - - - -                                  - - - - - - - - -        */
 /*                                                                                            */
