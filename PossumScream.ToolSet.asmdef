@@ -1,5 +1,5 @@
 {
-    "name": "ToolSet",
+    "name": "PossumScream.ToolSet",
     "rootNamespace": "PossumScream",
     "references": [
         "GUID:b78f24bf1f52eab40801822f1fb060da"

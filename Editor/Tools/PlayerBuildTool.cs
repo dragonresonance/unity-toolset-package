@@ -12,7 +12,7 @@ using UnityEngine;
 
 namespace PossumScream.Editor.Tools
 {
-	[CreateAssetMenu(menuName = "Building", fileName = "New PlayerBuild Asset")]
+	[CreateAssetMenu(menuName = "PossumScream/PlayerBuild Asset", fileName = "New PlayerBuild Asset")]
 	public class PlayerBuildTool : ScriptableObject
 	{
 		[Header("Configuration")]
