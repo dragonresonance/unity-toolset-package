@@ -65,6 +65,7 @@ namespace PossumScream.Editor.Tools
 	public struct BuildPlayerOptionsSet
 	{
 		public string alias;
+		public bool visible;
 		public BuildTarget target;
 		public StandaloneBuildSubtarget subtarget;
 		public BuildOptions options;
@@ -87,6 +88,7 @@ namespace PossumScream.Editor.Tools
 
 			EditorGUILayout.LabelField("Build", EditorStyles.boldLabel);
 			for (int optionsSetIndex = 0; optionsSetIndex < playerBuildTool!.buildPlayerOptionsSets.Length; optionsSetIndex++) {
+				if (!playerBuildTool.buildPlayerOptionsSets[optionsSetIndex].visible) continue;
 				BuildPlayerOptionsSet optionsSet = playerBuildTool.buildPlayerOptionsSets[optionsSetIndex];
 				if (GUILayout.Button(optionsSet.alias))
 					playerBuildTool.BuildPlayer(optionsSetIndex);
