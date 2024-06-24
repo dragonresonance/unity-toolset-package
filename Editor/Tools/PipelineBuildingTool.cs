@@ -81,14 +81,14 @@ namespace PossumScream.Editor.Tools
 	{
 		public override void OnInspectorGUI()
 		{
-			PipelineBuildingTool pipelineBuildingTool = base.target as PipelineBuildingTool;
+			PipelineBuildingTool pipelineBuildingTool = (PipelineBuildingTool)base.target;
 
 
 			base.OnInspectorGUI();
 
 			EditorGUILayout.LabelField("Pipeline Summary", EditorStyles.boldLabel);
 			int order = 0;
-			foreach (SBuildConfiguration configuration in pipelineBuildingTool!.BuildConfigurations)
+			foreach (SBuildConfiguration configuration in pipelineBuildingTool.BuildConfigurations)
 				if (configuration.included)
 					EditorGUILayout.LabelField($"{++order}. {configuration.alias}");
 
