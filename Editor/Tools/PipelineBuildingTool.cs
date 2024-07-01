@@ -81,10 +81,9 @@ namespace PossumScream.Editor.Tools
 	{
 		public override void OnInspectorGUI()
 		{
+			base.OnInspectorGUI();
 			PipelineBuildingTool pipelineBuildingTool = (PipelineBuildingTool)base.target;
 
-
-			base.OnInspectorGUI();
 
 			EditorGUILayout.LabelField("Pipeline Summary", EditorStyles.boldLabel);
 			int order = 0;
