@@ -1,7 +1,7 @@
 #if UNITY_EDITOR
 
 
-using PossumScream.Enhancements;
+using DragonResonance.Logging;
 using UnityEditor;
 using UnityEngine;
 using UnityObject = UnityEngine.Object;
@@ -9,17 +9,17 @@ using UnityObject = UnityEngine.Object;
 
 
 
-namespace PossumScream.Editor.Optimization
+namespace DragonResonance.Editor.Optimization
 {
 	public static class ScaleChecker
 	{
-		private static int allZeroScaleCount = 0;
-		private static int troublesomeScaleCount = 0;
+		private static int _zeroScaleCount = 0;
+		private static int _troublesomeScaleCount = 0;
 
 
 
 
-		#region Controls
+		#region Publics
 
 
 			[MenuItem("Tools/PossumScream/Optimization/Check scene for troublesome scales")]
@@ -27,29 +27,28 @@ namespace PossumScream.Editor.Optimization
 			{
 				HLogger.LogInfo("Checking scene for troublesome scales...", typeof(ScaleChecker));
 				{
-					Transform[] sceneTransforms = UnityObject.FindObjectsOfType<Transform>(true);
-
+					Transform[] sceneTransforms = UnityObject.FindObjectsByType<Transform>(
+						FindObjectsInactive.Include, FindObjectsSortMode.None);
 
 					foreach (Transform transform in sceneTransforms) {
 						Vector3 transformLocalScale = transform.localScale;
 
-
-						if (checkForAllZeroScale(transformLocalScale)) {
+						if (CheckZeroScale(transformLocalScale)) {
 							HLogger.LogInfo($"Has an <color={HLogger.Severity.INFO}><b>all-zero</b></color> scale", transform);
-							allZeroScaleCount++;
+							_zeroScaleCount++;
 							continue;
 						}
 
-						if (!checkForAllOneScale(transformLocalScale)) {
+						if (!CheckOneScale(transformLocalScale)) {
 							HLogger.LogWarning($"Has a <color={HLogger.Severity.WARN}><b>troublesome</b></color> scale <b>→ [ x:<color={HLogger.Severity.WARN}>{transformLocalScale.x}</color>, y:<color={HLogger.Severity.WARN}>{transformLocalScale.y}</color>, z:<color={HLogger.Severity.WARN}>{transformLocalScale.z}</color> ]</b>", transform);
-							troublesomeScaleCount++;
+							_troublesomeScaleCount++;
 							continue;
 						}
 					}
 
 					HLogger.LogEmphasis($"Analyzed {sceneTransforms.Length} scene scales", typeof(ScaleChecker));
-					HLogger.LogEmphasis($"Detected {allZeroScaleCount} all-zero scales", typeof(ScaleChecker));
-					HLogger.LogEmphasis($"Detected {troublesomeScaleCount} troublesome scales", typeof(ScaleChecker));
+					HLogger.LogEmphasis($"Detected {_zeroScaleCount} all-zero scales", typeof(ScaleChecker));
+					HLogger.LogEmphasis($"Detected {_troublesomeScaleCount} troublesome scales", typeof(ScaleChecker));
 				}
 				HLogger.LogInfo("Done!", typeof(ScaleChecker));
 			}
@@ -60,10 +59,10 @@ namespace PossumScream.Editor.Optimization
 
 
 
-		#region Actions
+		#region Privates
 
 
-			private static bool checkForAllZeroScale(Vector3 scale)
+			private static bool CheckZeroScale(Vector3 scale)
 			{
 				return (Mathf.Approximately(scale.x, 0f) &&
 				        Mathf.Approximately(scale.y, 0f) &&
@@ -71,7 +70,7 @@ namespace PossumScream.Editor.Optimization
 			}
 
 
-			private static bool checkForAllOneScale(Vector3 scale)
+			private static bool CheckOneScale(Vector3 scale)
 			{
 				return (Mathf.Approximately(scale.x, 1f) &&
 				        Mathf.Approximately(scale.y, 1f) &&
@@ -89,15 +88,19 @@ namespace PossumScream.Editor.Optimization
 
 
 
-/*                                                                                            */
-/*          ______                               _______                                      */
-/*          \  __ \____  ____________  ______ ___\  ___/_____________  ____  ____ ___         */
-/*          / /_/ / __ \/ ___/ ___/ / / / __ \__ \\__ \/ ___/ ___/ _ \/ __ \/ __ \__ \        */
-/*         / ____/ /_/ /__  /__  / /_/ / / / / / /__/ / /__/ /  / ___/ /_/ / / / / / /        */
-/*        /_/    \____/____/____/\____/_/ /_/ /_/____/\___/_/   \___/\__/_/_/ /_/ /__\        */
-/*                                                                                            */
-/*        Licensed under the Apache License, Version 2.0. See LICENSE.md for more info        */
-/*        David Tabernero M. @ PossumScream                      Copyright © 2021-2024        */
-/*        GitLab - GitHub: possumscream                            All rights reserved        */
-/*        - - - - - - - - - - - - -                                  - - - - - - - - -        */
-/*                                                                                            */
+/*       ________________________________________________________________       */
+/*           _________   _______ ________  _______  _______  ___    _           */
+/*           |        \ |______/ |______| |  _____ |       | |  \   |           */
+/*           |________/ |     \_ |      | |______| |_______| |   \__|           */
+/*           ______ _____ _____ _____ __   _ _____ __   _ _____ _____           */
+/*           |____/ |____ [___  |   | | \  | |___| | \  | |     |____           */
+/*           |    \ |____ ____] |___| |  \_| |   | |  \_| |____ |____           */
+/*       ________________________________________________________________       */
+/*                                                                              */
+/*           David Tabernero M.  <https://github.com/davidtabernerom>           */
+/*           Dragon Resonance    <https://github.com/dragonresonance>           */
+/*                  Copyright © 2021-2024. All rights reserved.                 */
+/*                Licensed under the Apache License, Version 2.0.               */
+/*                         See LICENSE.md for more info.                        */
+/*       ________________________________________________________________       */
+/*                                                                              */

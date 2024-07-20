@@ -1,24 +1,26 @@
 
 
-# PossumScream ToolSet
+# Unity ToolSet Package
 
 ## Installation
 
 - Open the **Unity Package Manager**.
 - Click the dropdown **+** button and select *Add package from git URL...*.
 - Add one of the following mirrors:
-  - GitHub: [```https://github.com/possumscream/unitypackage-toolset.git#master```](https://github.com/possumscream/unitypackage-toolset.git#master)
-  - GitLab: [```https://gitlab.com/possumscream/unitypackage-toolset.git#master```](https://gitlab.com/possumscream/unitypackage-toolset.git#master)
+  - GitHub: [```https://github.com/dragonresonance/unity-toolset-package#master```](https://github.com/dragonresonance/unity-toolset-package#master)
+  - GitLab: [```https://gitlab.com/dragonresonance/unity-toolset-package#master```](https://gitlab.com/dragonresonance/unity-toolset-package#master)
 
 
 ## Dependencies
 
-- PossumScream DevKit: [```https://github.com/possumscream/unitypackage-devkit.git#master```](https://github.com/possumscream/unitypackage-devkit.git#master)
+- Dragon Resonance DevKit:
+  - GitHub: [```https://github.com/dragonresonance/unity-devkit-package#master```](https://github.com/dragonresonance/unity-devkit-package#master)
+  - GitLab: [```https://gitlab.com/dragonresonance/unity-devkit-package#master```](https://gitlab.com/dragonresonance/unity-devkit-package#master)
 
 
 ## Issues
 
-Please use the [GitHub Issues](https://github.com/possumscream/unitypackage-toolset/issues) dedicated site.
+Please use the [GitHub Issues](https://github.com/dragonresonance/unity-toolset-package/issues) dedicated site.
 
 
 ## License
@@ -29,7 +31,7 @@ The dependencies have their own separate licenses.
 
 ## Authors
 
-| Name               | Website                         | Twitter                                                 |
-|--------------------|---------------------------------|---------------------------------------------------------|
-| David Tabernero M. | https://www.davidtabernero.net/ | [@davidtabernerom](https://twitter.com/davidtabernerom) |
+| Name               | Website                         | X                                                 | Mastodon                                                     |
+|--------------------|---------------------------------|---------------------------------------------------|--------------------------------------------------------------|
+| David Tabernero M. | https://www.davidtabernero.net/ | [@davidtabernerom](https://x.com/davidtabernerom) | [@davidtabernerom](https://mastodon.online/@davidtabernerom) |
 

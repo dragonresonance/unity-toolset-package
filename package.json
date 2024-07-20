@@ -1,18 +1,18 @@
 {
-	"name": "git.possumscream.toolset",
-	"version": "1.2.1",
-	"displayName": "PossumScream ToolSet",
+	"name": "git.dragonresonance.toolset",
+	"version": "2.0.0",
+	"displayName": "Dragon Resonance ToolSet",
 	"description": "",
 	"unity": "2021.3",
 	"license": "Apache-2.0",
 	"dependencies": {
-		"git.possumscream.devkit": "https://github.com/possumscream/unitypackage-devkit.git#master"
+		"git.dragonresonance.devkit": "https://github.com/dragonresonance/unity-devkit-package.git#master"
 	},
 	"keywords": [
 		"scripting"
 	],
 	"author": {
-		"name": "PossumScream",
-		"url": "https://possumscream.davidtabernero.net/"
+		"name": "Dragon Resonance",
+		"url": "https://dragonresonance.davidtabernero.net/"
 	}
 }
