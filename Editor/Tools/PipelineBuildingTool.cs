@@ -87,9 +87,17 @@ namespace DragonResonance.Editor.Tools
 
 			EditorGUILayout.LabelField("Pipeline Summary", EditorStyles.boldLabel);
 			int order = 0;
-			foreach (SBuildConfiguration configuration in pipelineBuildingTool.BuildConfigurations)
-				if (configuration.included)
-					EditorGUILayout.LabelField($"{++order}. {configuration.alias}");
+			foreach (SBuildConfiguration configuration in pipelineBuildingTool.BuildConfigurations) {
+				if (configuration.included) {
+					EditorGUILayout.BeginHorizontal();
+					{
+						EditorGUILayout.LabelField($"{++order}. {configuration.alias}");
+						if (GUILayout.Button("Build"))
+							pipelineBuildingTool.Build(configuration);
+					}
+					EditorGUILayout.EndHorizontal();
+				}
+			}
 
 			if (GUILayout.Button("Execute Building Pipeline"))
 				pipelineBuildingTool.BuildPipeline();
