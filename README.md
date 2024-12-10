@@ -7,8 +7,8 @@
 - Open the **Unity Package Manager**.
 - Click the dropdown **+** button and select *Add package from git URL...*.
 - Add one of the following mirrors:
-  - GitHub: [```https://github.com/dragonresonance/unity-toolset-package#master```](https://github.com/dragonresonance/unity-toolset-package#master)
-  - GitLab: [```https://gitlab.com/dragonresonance/unity-toolset-package#master```](https://gitlab.com/dragonresonance/unity-toolset-package#master)
+  - GitHub: [```https://github.com/dragonresonance/unity-toolset-package.git#master```](https://github.com/dragonresonance/unity-toolset-package.git#master)
+  - GitLab: [```https://gitlab.com/dragonresonance/unity-toolset-package.git#master```](https://gitlab.com/dragonresonance/unity-toolset-package.git#master)
 
 
 ## Dependencies
