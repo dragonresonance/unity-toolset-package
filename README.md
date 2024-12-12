@@ -14,8 +14,8 @@
 ## Dependencies
 
 - Dragon Resonance DevKit:
-  - GitHub: [```https://github.com/dragonresonance/unity-devkit-package#master```](https://github.com/dragonresonance/unity-devkit-package#master)
-  - GitLab: [```https://gitlab.com/dragonresonance/unity-devkit-package#master```](https://gitlab.com/dragonresonance/unity-devkit-package#master)
+  - GitHub: [```https://github.com/dragonresonance/unity-devkit-package.git#master```](https://github.com/dragonresonance/unity-devkit-package.git#master)
+  - GitLab: [```https://gitlab.com/dragonresonance/unity-devkit-package.git#master```](https://gitlab.com/dragonresonance/unity-devkit-package.git#master)
 
 
 ## Issues
