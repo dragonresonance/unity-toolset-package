@@ -31,7 +31,7 @@ The dependencies have their own separate licenses.
 
 ## Authors
 
-| Name               | Website                         | X                                                 | Mastodon                                                     |
-|--------------------|---------------------------------|---------------------------------------------------|--------------------------------------------------------------|
-| David Tabernero M. | https://www.davidtabernero.net/ | [@davidtabernerom](https://x.com/davidtabernerom) | [@davidtabernerom](https://mastodon.online/@davidtabernerom) |
+| Name               | Website                                 | X                                                 | Bluesky                                                                  | Mastodon                                                     |
+|--------------------|-----------------------------------------|---------------------------------------------------|--------------------------------------------------------------------------|--------------------------------------------------------------|
+| David Tabernero M. | [tabernero.dev](https://tabernero.dev/) | [@davidtabernerom](https://x.com/davidtabernerom) | [@davidtabernerom](https://bsky.app/profile/davidtabernerom.bsky.social) | [@davidtabernerom](https://mastodon.online/@davidtabernerom) |
 
