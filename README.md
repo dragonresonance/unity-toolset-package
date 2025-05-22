@@ -1,6 +1,7 @@
 
 
-# Unity ToolSet Package
+![Logo](./Logo.png)
+
 
 ## Installation
 
@@ -29,9 +30,9 @@ The base of this package is licensed under the [Apache License, Version 2.0](LIC
 The dependencies have their own separate licenses.
 
 
-## Authors
+## Developers
 
-| Name               | Website                                 | X                                                 | Bluesky                                                                  | Mastodon                                                     |
+| Name               | Website                                 | Twitter / X                                       | Bluesky                                                                  | Mastodon                                                     |
 |--------------------|-----------------------------------------|---------------------------------------------------|--------------------------------------------------------------------------|--------------------------------------------------------------|
 | David Tabernero M. | [tabernero.dev](https://tabernero.dev/) | [@davidtabernerom](https://x.com/davidtabernerom) | [@davidtabernerom](https://bsky.app/profile/davidtabernerom.bsky.social) | [@davidtabernerom](https://mastodon.online/@davidtabernerom) |
 
