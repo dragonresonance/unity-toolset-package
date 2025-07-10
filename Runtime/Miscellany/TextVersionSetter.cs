@@ -23,7 +23,7 @@ namespace DragonResonance.Miscellany
 			[ContextMenu(nameof(SetTargets))]
 			public void SetTargets()
 			{
-				_targets.Invoke(string.Format(_format, Application.version));
+				_targets?.Invoke(string.Format(_format, Application.version));
 			}
 
 		#endregion
