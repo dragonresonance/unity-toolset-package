@@ -1,8 +1,8 @@
 {
-    "name": "DragonResonance.ToolSet",
-    "rootNamespace": "DragonResonance",
+    "name": "Praenaris.ToolSet",
+    "rootNamespace": "Praenaris",
     "references": [
-        "DragonResonance.DevKit",
+        "Praenaris.DevKit",
         "Tabernero.SimpleJSON",
         "UniTask",
         "UniTask.Linq"
