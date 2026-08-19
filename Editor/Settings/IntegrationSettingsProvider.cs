@@ -1,77 +1,23 @@
 #if UNITY_EDITOR
 
 
-using DragonResonance.Editor.Building;
-using DragonResonance.Extensions;
 using DragonResonance.Integration;
-using System.Linq;
 using UnityEditor;
-using UnityEngine;
-using UnityObject = UnityEngine.Object;
 
 
 namespace DragonResonance.Editor.Settings
 {
-	public class IntegrationSettingsProvider : SettingsProvider
+	public class IntegrationSettingsProvider : APraenarisSettingsProvider<IntegrationSettings>
 	{
-		private const string SettingsPath = "Project/Dragon Resonance/Integration";
-		private const int LargePadding = 24;
-		private const int SmallPadding = 12;
-
-
-		private static IntegrationSettings _settings;
-		private static SerializedObject _serializedScriptableObject;
+		private const string SettingsPath = "Project/Praenaris/Integration";
 
 
 		#region Constructors
 
 			[SettingsProvider]
-			public static SettingsProvider Create()
-			{
-				string[] guids = AssetDatabase.FindAssets($"t:{nameof(IntegrationSettings)}");
-				if (guids.Length.IsZero()) {
-					_settings = ScriptableObject.CreateInstance<IntegrationSettings>();
-					AssetDatabase.CreateAsset(_settings, $"Assets/{nameof(IntegrationSettings)}.asset");
-					AssetDatabase.SaveAssets();
-				}
-				else {
-					string path = AssetDatabase.GUIDToAssetPath(guids.First());
-					_settings = AssetDatabase.LoadAssetAtPath<IntegrationSettings>(path);
-				}
-
-				PreloadedAssets.Add(_settings);
-				_serializedScriptableObject = new SerializedObject(_settings);
-
-				return new IntegrationSettingsProvider(SettingsPath, SettingsScope.Project);
-			}
+			public static SettingsProvider Create() => new IntegrationSettingsProvider(SettingsPath, SettingsScope.Project);
 
 			public IntegrationSettingsProvider(string path, SettingsScope scope) : base(path, scope) { }
-
-		#endregion
-
-
-		#region Publics
-
-			public override void OnGUI(string searchContext)
-			{
-				GUIStyle paddedSection = new() { padding = new RectOffset(LargePadding, LargePadding, SmallPadding, SmallPadding) };
-				EditorGUILayout.BeginVertical(paddedSection);
-				{
-					_serializedScriptableObject.Update();
-
-					SerializedProperty property = _serializedScriptableObject.GetIterator();
-					if (property.NextVisible(true)) {
-						do {
-							if (property.name == "m_Script") continue;
-							EditorGUILayout.PropertyField(property, true);
-						}
-						while (property.NextVisible(false));
-					}
-
-					_serializedScriptableObject.ApplyModifiedProperties();
-				}
-				EditorGUILayout.EndVertical();
-			}
 
 		#endregion
 	}
@@ -81,19 +27,15 @@ namespace DragonResonance.Editor.Settings
 #endif
 
 
-/*       ________________________________________________________________       */
-/*           _________   _______ ________  _______  _______  ___    _           */
-/*           |        \ |______/ |______| |  _____ |       | |  \   |           */
-/*           |________/ |     \_ |      | |______| |_______| |   \__|           */
-/*           ______ _____ _____ _____ __   _ _____ __   _ _____ _____           */
-/*           |____/ |____ [___  |   | | \  | |___| | \  | |     |____           */
-/*           |    \ |____ ____] |___| |  \_| |   | |  \_| |____ |____           */
-/*       ________________________________________________________________       */
-/*                                                                              */
-/*           David Tabernero M.  <https://github.com/davidtabernerom>           */
-/*           Dragon Resonance    <https://github.com/dragonresonance>           */
-/*                  Copyright © 2021-2026. All rights reserved.                 */
-/*                Licensed under the Apache License, Version 2.0.               */
-/*                         See LICENSE.md for more info.                        */
-/*       ________________________________________________________________       */
-/*                                                                              */
+/*                                                                                                                */
+/*       `7MM"""Mq.`7MM"""Mq.       db     `7MM"""YMM  `7MN.   `7MF'     db     `7MM"""Mq. `7MMF' .M"""bgd        */
+/*         MM   `MM. MM   `MM.     ;MM:      MM    `7    MMN.    M      ;MM:      MM   `MM.  MM  ,MI    "Y        */
+/*         MM   ,M9  MM   ,M9     ,V^MM.     MM   d      M YMb   M     ,V^MM.     MM   ,M9   MM  `MMb.            */
+/*         MMmmdM9   MMmmdM9     ,M  `MM     MMmmMM      M  `MN. M    ,M  `MM     MMmmdM9    MM    `YMMNq.        */
+/*         MM        MM  YM.     AbmmmqMA    MM   Y  ,   M   `MM.M    AbmmmqMA    MM  YM.    MM  .     `MM        */
+/*         MM        MM   `Mb.  A'     VML   MM     ,M   M     YMM   A'     VML   MM   `Mb.  MM  Mb     dM        */
+/*       .JMML.    .JMML. .JMM.AMA.   .AMMA.JMMmmmmMMM .JML.    YM .AMA.   .AMMA.JMML. .JMM.JMML.P"Ybmmd"         */
+/*                                                                                                                */
+/*                 Licensed under the Apache License, Version 2.0.  See LICENSE.md for more info.                 */
+/*                                     Copyright © 2026. All rights reserved.                                     */
+/*                                                                                                                */
