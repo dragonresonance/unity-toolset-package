@@ -11,7 +11,7 @@ using UnityEngine;
 
 namespace DragonResonance.Editor.Settings
 {
-	public class LocalizerSettingsProvider : APraenarisSettingsProvider<LocalizerSettings>
+	public class LocalizerSettingsProvider : AScriptableSettingsProvider<LocalizerSettings>
 	{
 		private const string SettingsPath = "Project/Praenaris/Localizer";
 

@@ -7,7 +7,7 @@ using UnityEditor;
 
 namespace DragonResonance.Editor.Settings
 {
-	public class IntegrationSettingsProvider : APraenarisSettingsProvider<IntegrationSettings>
+	public class IntegrationSettingsProvider : AScriptableSettingsProvider<IntegrationSettings>
 	{
 		private const string SettingsPath = "Project/Praenaris/Integration";
 

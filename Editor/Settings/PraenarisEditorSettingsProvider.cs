@@ -7,25 +7,25 @@ using UnityEngine;
 
 namespace DragonResonance.Editor.Settings
 {
-	public class DragonResonanceEditorSettingsProvider : SettingsProvider
+	public class PraenarisEditorSettingsProvider : SettingsProvider
 	{
-		private const string SettingsPath = "Project/Dragon Resonance";
+		private const string SettingsPath = "Project/Praenaris";
 		private const string BannerGUID = "9a60bf40f7c4aa74d94ea7c32361af13";
 		private const int LargePadding = 60;
 		private const int MediumPadding = 36;
 		private const int SmallPadding = 12;
 
 
-		private static DragonResonanceEditorSettings _settings;
-		private static Texture2D _bannerImage = null;
+		private PraenarisEditorSettings _settings = null;
+		private readonly Texture2D _bannerImage = null;
 
 
 		#region Constructors
 
 			[SettingsProvider]
-			public static SettingsProvider Create() => new DragonResonanceEditorSettingsProvider(SettingsPath, SettingsScope.Project);
+			public static SettingsProvider Create() => new PraenarisEditorSettingsProvider(SettingsPath, SettingsScope.Project);
 
-			public DragonResonanceEditorSettingsProvider(string path, SettingsScope scope) : base(path, scope)
+			public PraenarisEditorSettingsProvider(string path, SettingsScope scope) : base(path, scope)
 			{
 				string bannerPath = AssetDatabase.GUIDToAssetPath(BannerGUID);
 				_bannerImage = AssetDatabase.LoadAssetAtPath<Texture2D>(bannerPath);
@@ -38,7 +38,7 @@ namespace DragonResonance.Editor.Settings
 
 			public override void OnGUI(string searchContext)
 			{
-				_settings = DragonResonanceEditorSettings.instance;
+				_settings = PraenarisEditorSettings.instance;
 
 				Rect bannerRect = GUILayoutUtility.GetAspectRect((float)_bannerImage.width / _bannerImage.height);
 				GUIStyle fullSection = new() { padding = new RectOffset(MediumPadding, MediumPadding, MediumPadding, MediumPadding) };
@@ -55,11 +55,11 @@ namespace DragonResonance.Editor.Settings
 						EditorGUILayout.BeginHorizontal(separatedSection);
 						{
 							if (GUILayout.Button("Website"))
-								Application.OpenURL("https://www.dragonresonance.com/");
+								Application.OpenURL("https://www.praenaris.com/");
 							if (GUILayout.Button("GitHub"))
-								Application.OpenURL("https://github.com/dragonresonance");
+								Application.OpenURL("https://github.com/Praenaris");
 							if (GUILayout.Button("GitLab"))
-								Application.OpenURL("https://gitlab.com/dragonresonance");
+								Application.OpenURL("https://gitlab.com/Praenaris");
 						}
 						EditorGUILayout.EndHorizontal();
 					}
@@ -69,9 +69,9 @@ namespace DragonResonance.Editor.Settings
 						EditorGUILayout.BeginHorizontal(separatedSection);
 						{
 							if (GUILayout.Button("Submit DevKit issue"))
-								Application.OpenURL("https://github.com/dragonresonance/unity-devkit/issues/new/choose");
+								Application.OpenURL("https://github.com/Praenaris/Unity-DevKit/issues/new/choose");
 							if (GUILayout.Button("Submit ToolSet issue"))
-								Application.OpenURL("https://github.com/dragonresonance/unity-toolset/issues/new/choose");
+								Application.OpenURL("https://github.com/Praenaris/Unity-ToolSet/issues/new/choose");
 						}
 						EditorGUILayout.EndHorizontal();
 					}
@@ -104,9 +104,9 @@ namespace DragonResonance.Editor.Settings
 					{
 						EditorGUILayout.BeginVertical(copyrightSection);
 						{
-							GUICenteredLabel("Copyright © 2021-2026. All rights reserved.");
+							GUICenteredLabel("Copyright © 2026. All rights reserved.");
 							GUICenteredLabel("Licensed under the Apache License, Version 2.0.");
-							GUICenteredLink("See LICENSE.md for more info.", "https://github.com/dragonresonance/unity-toolset/blob/master/LICENSE.md");
+							GUICenteredLink("See LICENSE.md for more info.", "https://github.com/Praenaris/Unity-ToolSet/blob/master/LICENSE.md");
 						}
 						EditorGUILayout.EndVertical();
 					}
@@ -123,7 +123,7 @@ namespace DragonResonance.Editor.Settings
 
 		#region Privates
 
-			private static void GUICenteredLabel(string text)
+			private void GUICenteredLabel(string text)
 			{
 				EditorGUILayout.BeginHorizontal();
 				GUILayout.FlexibleSpace();
@@ -132,7 +132,7 @@ namespace DragonResonance.Editor.Settings
 				EditorGUILayout.EndHorizontal();
 			}
 
-			private static void GUICenteredLink(string text, string url)
+			private void GUICenteredLink(string text, string url)
 			{
 				EditorGUILayout.BeginHorizontal();
 				GUILayout.FlexibleSpace();
@@ -150,19 +150,15 @@ namespace DragonResonance.Editor.Settings
 #endif
 
 
-/*       ________________________________________________________________       */
-/*           _________   _______ ________  _______  _______  ___    _           */
-/*           |        \ |______/ |______| |  _____ |       | |  \   |           */
-/*           |________/ |     \_ |      | |______| |_______| |   \__|           */
-/*           ______ _____ _____ _____ __   _ _____ __   _ _____ _____           */
-/*           |____/ |____ [___  |   | | \  | |___| | \  | |     |____           */
-/*           |    \ |____ ____] |___| |  \_| |   | |  \_| |____ |____           */
-/*       ________________________________________________________________       */
-/*                                                                              */
-/*           David Tabernero M.  <https://github.com/davidtabernerom>           */
-/*           Dragon Resonance    <https://github.com/dragonresonance>           */
-/*                  Copyright © 2021-2026. All rights reserved.                 */
-/*                Licensed under the Apache License, Version 2.0.               */
-/*                         See LICENSE.md for more info.                        */
-/*       ________________________________________________________________       */
-/*                                                                              */
+/*                                                                                                                */
+/*       `7MM"""Mq.`7MM"""Mq.       db     `7MM"""YMM  `7MN.   `7MF'     db     `7MM"""Mq. `7MMF' .M"""bgd        */
+/*         MM   `MM. MM   `MM.     ;MM:      MM    `7    MMN.    M      ;MM:      MM   `MM.  MM  ,MI    "Y        */
+/*         MM   ,M9  MM   ,M9     ,V^MM.     MM   d      M YMb   M     ,V^MM.     MM   ,M9   MM  `MMb.            */
+/*         MMmmdM9   MMmmdM9     ,M  `MM     MMmmMM      M  `MN. M    ,M  `MM     MMmmdM9    MM    `YMMNq.        */
+/*         MM        MM  YM.     AbmmmqMA    MM   Y  ,   M   `MM.M    AbmmmqMA    MM  YM.    MM  .     `MM        */
+/*         MM        MM   `Mb.  A'     VML   MM     ,M   M     YMM   A'     VML   MM   `Mb.  MM  Mb     dM        */
+/*       .JMML.    .JMML. .JMM.AMA.   .AMMA.JMMmmmmMMM .JML.    YM .AMA.   .AMMA.JMML. .JMM.JMML.P"Ybmmd"         */
+/*                                                                                                                */
+/*                 Licensed under the Apache License, Version 2.0.  See LICENSE.md for more info.                 */
+/*                                     Copyright © 2026. All rights reserved.                                     */
+/*                                                                                                                */

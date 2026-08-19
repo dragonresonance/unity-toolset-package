@@ -10,7 +10,7 @@ using UnityEngine;
 
 namespace DragonResonance.Editor.Settings
 {
-	public abstract class APraenarisSettingsProvider<TSettings> : SettingsProvider where TSettings : ScriptableObject
+	public abstract class AScriptableSettingsProvider<TSettings> : SettingsProvider where TSettings : ScriptableObject
 	{
 		protected const int LargePadding = 24;
 		protected const int SmallPadding = 12;
@@ -22,7 +22,7 @@ namespace DragonResonance.Editor.Settings
 
 		#region Constructors
 
-			protected APraenarisSettingsProvider(string path, SettingsScope scope) : base(path, scope) => LoadOrCreateSettings();
+			protected AScriptableSettingsProvider(string path, SettingsScope scope) : base(path, scope) => LoadOrCreateSettings();
 
 		#endregion
 

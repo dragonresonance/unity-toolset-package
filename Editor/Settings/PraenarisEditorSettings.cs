@@ -1,23 +1,21 @@
 #if UNITY_EDITOR
 
 
-using DragonResonance.Sounder;
 using UnityEditor;
 
 
 namespace DragonResonance.Editor.Settings
 {
-	public class SounderSettingsProvider : AScriptableSettingsProvider<SounderSettings>
+	[FilePath("ProjectSettings/PraenarisSettings.asset", FilePathAttribute.Location.ProjectFolder)]
+	public class PraenarisEditorSettings : ScriptableSingleton<PraenarisEditorSettings>
 	{
-		private const string SettingsPath = "Project/Praenaris/Sounder";
+		public bool EditorTestBool = true;
+		public string EditorTestString = "";
 
 
-		#region Constructors
+		#region Publics
 
-			[SettingsProvider]
-			public static SettingsProvider Create() => new SounderSettingsProvider(SettingsPath, SettingsScope.Project);
-
-			public SounderSettingsProvider(string path, SettingsScope scope) : base(path, scope) { }
+			public void Save() => base.Save(true);
 
 		#endregion
 	}

@@ -7,7 +7,7 @@ using UnityEditor;
 
 namespace DragonResonance.Editor.Settings
 {
-	public class SavedataSettingsProvider : APraenarisSettingsProvider<SavedataSettings>
+	public class SavedataSettingsProvider : AScriptableSettingsProvider<SavedataSettings>
 	{
 		private const string SettingsPath = "Project/Praenaris/Savedata";
 
