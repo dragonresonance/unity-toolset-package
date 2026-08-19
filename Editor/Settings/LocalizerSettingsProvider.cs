@@ -2,27 +2,19 @@
 
 
 using DragonResonance.Databases;
-using DragonResonance.Editor.Building;
 using DragonResonance.Extensions;
 using DragonResonance.Localizer;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEditor;
 using UnityEngine;
-using UnityObject = UnityEngine.Object;
 
 
 namespace DragonResonance.Editor.Settings
 {
-	public class LocalizerSettingsProvider : SettingsProvider
+	public class LocalizerSettingsProvider : AScriptableSettingsProvider<LocalizerSettings>
 	{
-		private const string SettingsPath = "Project/Dragon Resonance/Localizer";
-		private const int LargePadding = 24;
-		private const int SmallPadding = 12;
+		private const string SettingsPath = "Project/Praenaris/Localizer";
 
-
-		private static LocalizerSettings _settings;
-		private static SerializedObject _serializedScriptableObject;
 
 		private Vector2 _dataViewScroll = Vector2.zero;
 		private float _dataCellWidth = 240f;
@@ -31,77 +23,39 @@ namespace DragonResonance.Editor.Settings
 		#region Constructors
 
 			[SettingsProvider]
-			public static SettingsProvider Create()
-			{
-				string[] guids = AssetDatabase.FindAssets($"t:{nameof(LocalizerSettings)}");
-				if (guids.Length.IsZero()) {
-					_settings = ScriptableObject.CreateInstance<LocalizerSettings>();
-					AssetDatabase.CreateAsset(_settings, $"Assets/{nameof(LocalizerSettings)}.asset");
-					AssetDatabase.SaveAssets();
-				}
-				else {
-					string path = AssetDatabase.GUIDToAssetPath(guids.First());
-					_settings = AssetDatabase.LoadAssetAtPath<LocalizerSettings>(path);
-				}
-
-				PreloadedAssets.Add(_settings);
-				_serializedScriptableObject = new SerializedObject(_settings);
-
-				return new LocalizerSettingsProvider(SettingsPath, SettingsScope.Project);
-			}
+			public static SettingsProvider Create() => new LocalizerSettingsProvider(SettingsPath, SettingsScope.Project);
 
 			public LocalizerSettingsProvider(string path, SettingsScope scope) : base(path, scope) { }
 
 		#endregion
 
 
-		#region Publics
+		#region Inheritables
 
-			public override void OnGUI(string searchContext)
+			protected override void OnExtraGUI(string searchContext)
 			{
 				HeaderedSheet<string> sheet = Localizer.Localizer.DataSheet;
-
-				GUIStyle paddedSection = new() { padding = new RectOffset(LargePadding, LargePadding, SmallPadding, SmallPadding) };
 				GUIStyle dataCellStyle = new(UnityEngine.GUI.skin.textArea) { wordWrap = true };
 
-				EditorGUILayout.BeginVertical(paddedSection);
-				{
-					_serializedScriptableObject.Update();
-
-					SerializedProperty property = _serializedScriptableObject.GetIterator();
-					if (property.NextVisible(true)) {
-						do {
-							if (property.name == "m_Script") continue;
-							EditorGUILayout.PropertyField(property, true);
-						}
-						while (property.NextVisible(false));
-					}
-
-					_serializedScriptableObject.ApplyModifiedProperties();
-				}
-				{
-					GUILayout.Height(SmallPadding);
-					EditorGUILayout.LabelField("Data", EditorStyles.boldLabel);
-					if ((sheet?.Data == null) || (sheet.Data.IsEmpty()))
-						EditorGUILayout.LabelField("No data, only available on runtime", EditorStyles.centeredGreyMiniLabel);
-					else {
-						_dataCellWidth = EditorGUILayout.Slider($"Cell size", _dataCellWidth, 4f, 400f);
-						_dataViewScroll = EditorGUILayout.BeginScrollView(_dataViewScroll, true, true);
-						{
-							foreach (List<string> row in sheet.Data) {
-								EditorGUILayout.BeginHorizontal();
-								{
-									foreach (string column in row) {
-										EditorGUILayout.TextArea(column, dataCellStyle, GUILayout.Width(_dataCellWidth), GUILayout.ExpandHeight(true));
-									}
+				EditorGUILayout.LabelField("Data", EditorStyles.boldLabel);
+				if ((sheet?.Data == null) || (sheet.Data.IsEmpty()))
+					EditorGUILayout.LabelField("No data, only available on runtime", EditorStyles.centeredGreyMiniLabel);
+				else {
+					_dataCellWidth = EditorGUILayout.Slider("Cell size", _dataCellWidth, 4f, 400f);
+					_dataViewScroll = EditorGUILayout.BeginScrollView(_dataViewScroll, true, true);
+					{
+						foreach (List<string> row in sheet.Data) {
+							EditorGUILayout.BeginHorizontal();
+							{
+								foreach (string column in row) {
+									EditorGUILayout.TextArea(column, dataCellStyle, GUILayout.Width(_dataCellWidth), GUILayout.ExpandHeight(true));
 								}
-								EditorGUILayout.EndHorizontal();
 							}
+							EditorGUILayout.EndHorizontal();
 						}
-						EditorGUILayout.EndScrollView();
 					}
+					EditorGUILayout.EndScrollView();
 				}
-				EditorGUILayout.EndVertical();
 			}
 
 		#endregion
@@ -112,19 +66,15 @@ namespace DragonResonance.Editor.Settings
 #endif
 
 
-/*       ________________________________________________________________       */
-/*           _________   _______ ________  _______  _______  ___    _           */
-/*           |        \ |______/ |______| |  _____ |       | |  \   |           */
-/*           |________/ |     \_ |      | |______| |_______| |   \__|           */
-/*           ______ _____ _____ _____ __   _ _____ __   _ _____ _____           */
-/*           |____/ |____ [___  |   | | \  | |___| | \  | |     |____           */
-/*           |    \ |____ ____] |___| |  \_| |   | |  \_| |____ |____           */
-/*       ________________________________________________________________       */
-/*                                                                              */
-/*           David Tabernero M.  <https://github.com/davidtabernerom>           */
-/*           Dragon Resonance    <https://github.com/dragonresonance>           */
-/*                  Copyright © 2021-2026. All rights reserved.                 */
-/*                Licensed under the Apache License, Version 2.0.               */
-/*                         See LICENSE.md for more info.                        */
-/*       ________________________________________________________________       */
-/*                                                                              */
+/*                                                                                                                */
+/*       `7MM"""Mq.`7MM"""Mq.       db     `7MM"""YMM  `7MN.   `7MF'     db     `7MM"""Mq. `7MMF' .M"""bgd        */
+/*         MM   `MM. MM   `MM.     ;MM:      MM    `7    MMN.    M      ;MM:      MM   `MM.  MM  ,MI    "Y        */
+/*         MM   ,M9  MM   ,M9     ,V^MM.     MM   d      M YMb   M     ,V^MM.     MM   ,M9   MM  `MMb.            */
+/*         MMmmdM9   MMmmdM9     ,M  `MM     MMmmMM      M  `MN. M    ,M  `MM     MMmmdM9    MM    `YMMNq.        */
+/*         MM        MM  YM.     AbmmmqMA    MM   Y  ,   M   `MM.M    AbmmmqMA    MM  YM.    MM  .     `MM        */
+/*         MM        MM   `Mb.  A'     VML   MM     ,M   M     YMM   A'     VML   MM   `Mb.  MM  Mb     dM        */
+/*       .JMML.    .JMML. .JMM.AMA.   .AMMA.JMMmmmmMMM .JML.    YM .AMA.   .AMMA.JMML. .JMM.JMML.P"Ybmmd"         */
+/*                                                                                                                */
+/*                 Licensed under the Apache License, Version 2.0.  See LICENSE.md for more info.                 */
+/*                                     Copyright © 2026. All rights reserved.                                     */
+/*                                                                                                                */
