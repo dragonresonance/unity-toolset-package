@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace DragonResonance.Integration
 {
-	[CreateAssetMenu(menuName = "Dragon Resonance/Settings/Integration", fileName = "New Integration Settings")]
+	[CreateAssetMenu(menuName = "Praenaris/Settings/Integration", fileName = "New Integration Settings")]
 	public class IntegrationSettings : SingletonScriptableObject<IntegrationSettings>
 	{
 		public bool IntegrationTest = true;

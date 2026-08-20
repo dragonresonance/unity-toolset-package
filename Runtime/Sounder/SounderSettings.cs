@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace DragonResonance.Sounder
 {
-	[CreateAssetMenu(menuName = "Dragon Resonance/Settings/Sounder", fileName = "New Sounder Settings")]
+	[CreateAssetMenu(menuName = "Praenaris/Settings/Sounder", fileName = "New Sounder Settings")]
 	public class SounderSettings : SingletonScriptableObject<SounderSettings>
 	{
 		public AudioMixer AudioMixer = null;

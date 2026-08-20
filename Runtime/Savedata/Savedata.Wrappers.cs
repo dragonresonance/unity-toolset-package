@@ -1,4 +1,4 @@
-#if ENABLE_SAVEDATA && SIMPLEJSON
+#if ENABLE_SAVEDATA
 
 
 using System.Collections.Generic;
