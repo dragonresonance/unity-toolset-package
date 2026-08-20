@@ -1,39 +1,32 @@
-#if ENABLE_SAVEDATA
+#if UNITY_EDITOR
 
 
-using System.IO;
-using System;
-using UnityEngine;
+using UnityEditor;
 
 
-namespace DragonResonance.Savedata
+namespace DragonResonance.Editor.Building
 {
-	public partial class Savedata	// Paths
+	[InitializeOnLoad]
+	public static class IntegrationSystemToggler
 	{
+		private const string SUBSYSTEM_DEFINE = "_ENABLE_INTEGRATION";
+
+
+		#region Constructors
+
+			static IntegrationSystemToggler() => BuildDefines.SetDefinition(SUBSYSTEM_DEFINE, false);
+
+		#endregion
+
+
 		#region Publics
 
-			public static string GetOptimizedPersistentDataPath() => GetOptimizedPersistentDataPath(".");
-			public static string GetOptimizedPersistentDataPath(string path) => GetOptimizedPersistentDataPath(".", path);
-			public static string GetOptimizedPersistentDataPath(string path, string filename)
-			{
-				string optimizedPersistentDataPath = Application.persistentDataPath;
-
-				#if UNITY_STANDALONE_WIN
-					optimizedPersistentDataPath = Path.Combine(
-						Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
-						Application.companyName, Application.productName);
-				#elif UNITY_STANDALONE_LINUX
-					optimizedPersistentDataPath = Path.Combine(
-						Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-						Application.companyName, Application.productName);
-				#elif UNITY_STANDALONE_OSX
-					optimizedPersistentDataPath = Path.Combine(
-						Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-						Application.companyName, Application.productName);
-				#endif
-
-				return Path.GetFullPath(Path.Combine(optimizedPersistentDataPath, path, filename));
-			}
+			#if ENABLE_INTEGRATION
+				[MenuItem("Subsystems/Integration [ON]/Disable Integration")]
+			#else
+				[MenuItem("Subsystems/Integration [OFF]/Enable Integration")]
+			#endif
+			public static void SwitchSubsystem() => BuildDefines.ToggleBuildDefinition(SUBSYSTEM_DEFINE);
 
 		#endregion
 	}

@@ -1,15 +1,24 @@
 #if UNITY_EDITOR
 
 
-using DragonResonance.Sounder;
+using DragonResonance.Editor.Building;
 using UnityEditor;
+
+#if ENABLE_SOUNDER
+using DragonResonance.Sounder;
+#endif
 
 
 namespace DragonResonance.Editor.Settings
 {
+#if ENABLE_SOUNDER
 	public class SounderSettingsProvider : AScriptableSettingsProvider<SounderSettings>
+#else
+	public class SounderSettingsProvider : AScriptableSettingsProvider
+#endif
 	{
 		private const string SettingsPath = "Project/Praenaris/Sounder";
+		private const string BuildDefinition = "ENABLE_SOUNDER";
 
 
 		#region Constructors
@@ -18,6 +27,22 @@ namespace DragonResonance.Editor.Settings
 			public static SettingsProvider Create() => new SounderSettingsProvider(SettingsPath, SettingsScope.Project);
 
 			public SounderSettingsProvider(string path, SettingsScope scope) : base(path, scope) { }
+
+		#endregion
+
+
+		#region Inheritables
+
+			protected override void OnBeforeGUI(string searchContext)
+			{
+				#if ENABLE_SOUNDER
+					if (!EditorGUILayout.Toggle("Enabled", true))
+						BuildDefines.SetDefinitionState(BuildDefinition, false);
+				#else
+					if (EditorGUILayout.Toggle("Enabled", false))
+						BuildDefines.SetDefinitionState(BuildDefinition, true);
+				#endif
+			}
 
 		#endregion
 	}

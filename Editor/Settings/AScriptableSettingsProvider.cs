@@ -10,14 +10,53 @@ using UnityEngine;
 
 namespace DragonResonance.Editor.Settings
 {
-	public abstract class AScriptableSettingsProvider<TSettings> : SettingsProvider where TSettings : ScriptableObject
+	public abstract class AScriptableSettingsProvider : SettingsProvider
 	{
 		protected const int LargePadding = 24;
 		protected const int SmallPadding = 12;
 
 
-		protected TSettings _settings = null;
-		protected SerializedObject _serializedSettings = null;
+		#region Constructors
+
+			protected AScriptableSettingsProvider(string path, SettingsScope scope) : base(path, scope) { }
+
+		#endregion
+
+
+		#region Publics
+
+			public override void OnGUI(string searchContext)
+			{
+				GUIStyle paddedSection = new() { padding = new RectOffset(LargePadding, LargePadding, SmallPadding, SmallPadding) };
+
+				EditorGUILayout.BeginVertical(paddedSection);
+				GUILayout.FlexibleSpace();
+				{
+					OnBeforeGUI(searchContext);
+					OnAfterGUI(searchContext);
+				}
+				GUILayout.FlexibleSpace();
+				EditorGUILayout.EndVertical();
+			}
+
+		#endregion
+
+
+		#region Inheritables
+
+			protected virtual void OnBeforeGUI(string searchContext) { }
+			protected virtual void OnAfterGUI(string searchContext) { }
+
+		#endregion
+	}
+
+
+
+
+	public abstract class AScriptableSettingsProvider<TSettings> : AScriptableSettingsProvider where TSettings : ScriptableObject
+	{
+		private TSettings _settings = null;
+		private SerializedObject _serializedSettings = null;
 
 
 		#region Constructors
@@ -36,6 +75,7 @@ namespace DragonResonance.Editor.Settings
 				EditorGUILayout.BeginVertical(paddedSection);
 				{
 					_serializedSettings.Update();
+					OnBeforeGUI(searchContext);
 
 					SerializedProperty property = _serializedSettings.GetIterator();
 					if (property.NextVisible(true)) {
@@ -46,19 +86,11 @@ namespace DragonResonance.Editor.Settings
 						while (property.NextVisible(false));
 					}
 
+					OnAfterGUI(searchContext);
 					_serializedSettings.ApplyModifiedProperties();
-
-					OnExtraGUI(searchContext);
 				}
 				EditorGUILayout.EndVertical();
 			}
-
-		#endregion
-
-
-		#region Inheritables
-
-			protected virtual void OnExtraGUI(string searchContext) { }
 
 		#endregion
 

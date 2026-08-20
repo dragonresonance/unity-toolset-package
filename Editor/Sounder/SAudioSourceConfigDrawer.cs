@@ -1,41 +1,35 @@
-#if ENABLE_SAVEDATA
+#if UNITY_EDITOR && ENABLE_SOUNDER
 
 
-using System.IO;
-using System;
+using UnityEditor;
 using UnityEngine;
 
 
-namespace DragonResonance.Savedata
+namespace DragonResonance.Sounder
 {
-	public partial class Savedata	// Paths
+	[CustomPropertyDrawer(typeof(SAudioSourceConfig))]
+	public class SAudioSourceConfigDrawer : PropertyDrawer
 	{
-		#region Publics
-
-			public static string GetOptimizedPersistentDataPath() => GetOptimizedPersistentDataPath(".");
-			public static string GetOptimizedPersistentDataPath(string path) => GetOptimizedPersistentDataPath(".", path);
-			public static string GetOptimizedPersistentDataPath(string path, string filename)
+		public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
+		{
+			EditorGUI.BeginProperty(position, label, property);
 			{
-				string optimizedPersistentDataPath = Application.persistentDataPath;
+				SerializedProperty audioResourceProperty = property.FindPropertyRelative(nameof(SAudioSourceConfig.AudioResource));
+				SerializedProperty audioMixerGroupProperty = property.FindPropertyRelative(nameof(SAudioSourceConfig.AudioMixerGroup));
 
-				#if UNITY_STANDALONE_WIN
-					optimizedPersistentDataPath = Path.Combine(
-						Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
-						Application.companyName, Application.productName);
-				#elif UNITY_STANDALONE_LINUX
-					optimizedPersistentDataPath = Path.Combine(
-						Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-						Application.companyName, Application.productName);
-				#elif UNITY_STANDALONE_OSX
-					optimizedPersistentDataPath = Path.Combine(
-						Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-						Application.companyName, Application.productName);
-				#endif
+				position = EditorGUI.PrefixLabel(position, GUIUtility.GetControlID(FocusType.Passive), label);
 
-				return Path.GetFullPath(Path.Combine(optimizedPersistentDataPath, path, filename));
+				float halfWidth = position.width / 2f;
+				Rect audioResourcePropertyRect = new(position.x, position.y, halfWidth - 2, EditorGUIUtility.singleLineHeight);
+				Rect audioMixerGroupPropertyRect = new(position.x + halfWidth + 2, position.y, halfWidth - 2, EditorGUIUtility.singleLineHeight);
+
+				EditorGUI.PropertyField(audioResourcePropertyRect, audioResourceProperty, GUIContent.none);
+				EditorGUI.PropertyField(audioMixerGroupPropertyRect, audioMixerGroupProperty, GUIContent.none);
 			}
+			EditorGUI.EndProperty();
+		}
 
-		#endregion
+		public override float GetPropertyHeight(SerializedProperty property, GUIContent label) => EditorGUIUtility.singleLineHeight;
 	}
 }
 
