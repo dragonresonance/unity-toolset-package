@@ -32,7 +32,7 @@ namespace DragonResonance.Editor.Settings
 
 		#region Inheritables
 
-			protected override void OnExtraGUI(string searchContext)
+			protected override void OnAfterGUI(string searchContext)
 			{
 				HeaderedSheet<string> sheet = Localizer.Localizer.DataSheet;
 				GUIStyle dataCellStyle = new(UnityEngine.GUI.skin.textArea) { wordWrap = true };

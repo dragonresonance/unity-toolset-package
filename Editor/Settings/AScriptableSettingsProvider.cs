@@ -36,6 +36,7 @@ namespace DragonResonance.Editor.Settings
 				EditorGUILayout.BeginVertical(paddedSection);
 				{
 					_serializedSettings.Update();
+					OnBeforeGUI(searchContext);
 
 					SerializedProperty property = _serializedSettings.GetIterator();
 					if (property.NextVisible(true)) {
@@ -46,9 +47,8 @@ namespace DragonResonance.Editor.Settings
 						while (property.NextVisible(false));
 					}
 
+					OnAfterGUI(searchContext);
 					_serializedSettings.ApplyModifiedProperties();
-
-					OnExtraGUI(searchContext);
 				}
 				EditorGUILayout.EndVertical();
 			}
@@ -58,7 +58,8 @@ namespace DragonResonance.Editor.Settings
 
 		#region Inheritables
 
-			protected virtual void OnExtraGUI(string searchContext) { }
+			protected virtual void OnBeforeGUI(string searchContext) { }
+			protected virtual void OnAfterGUI(string searchContext) { }
 
 		#endregion
 
