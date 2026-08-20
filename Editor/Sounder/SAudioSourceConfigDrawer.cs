@@ -1,20 +1,35 @@
-#if ENABLE_SOUNDER
+#if UNITY_EDITOR && ENABLE_SOUNDER
 
 
+using UnityEditor;
 using UnityEngine;
 
 
 namespace DragonResonance.Sounder
 {
-	public class AnimatorStateSounderPlayer : StateMachineBehaviour
+	[CustomPropertyDrawer(typeof(SAudioSourceConfig))]
+	public class SAudioSourceConfigDrawer : PropertyDrawer
 	{
-		[SerializeField] private SAudioSourceConfig _stateEnterConfig = default;
-		[SerializeField] private SAudioSourceConfig _stateExitConfig = default;
+		public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
+		{
+			EditorGUI.BeginProperty(position, label, property);
+			{
+				SerializedProperty audioResourceProperty = property.FindPropertyRelative(nameof(SAudioSourceConfig.AudioResource));
+				SerializedProperty audioMixerGroupProperty = property.FindPropertyRelative(nameof(SAudioSourceConfig.AudioMixerGroup));
 
-		public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) =>
-			Sounder.Play(_stateEnterConfig);
-		public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) =>
-			Sounder.Play(_stateExitConfig);
+				position = EditorGUI.PrefixLabel(position, GUIUtility.GetControlID(FocusType.Passive), label);
+
+				float halfWidth = position.width / 2f;
+				Rect audioResourcePropertyRect = new(position.x, position.y, halfWidth - 2, EditorGUIUtility.singleLineHeight);
+				Rect audioMixerGroupPropertyRect = new(position.x + halfWidth + 2, position.y, halfWidth - 2, EditorGUIUtility.singleLineHeight);
+
+				EditorGUI.PropertyField(audioResourcePropertyRect, audioResourceProperty, GUIContent.none);
+				EditorGUI.PropertyField(audioMixerGroupPropertyRect, audioMixerGroupProperty, GUIContent.none);
+			}
+			EditorGUI.EndProperty();
+		}
+
+		public override float GetPropertyHeight(SerializedProperty property, GUIContent label) => EditorGUIUtility.singleLineHeight;
 	}
 }
 
