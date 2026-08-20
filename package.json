@@ -1,20 +1,24 @@
 {
-	"name": "com.praenaris.toolset",
-	"version": "4.1.0",
-	"displayName": "Praenaris ToolSet",
-	"description": "",
-	"unity": "6000.0",
-	"license": "Apache-2.0",
-	"dependencies": {
-		"com.praenaris.devkit": "4.1.0",
-		"dev.tabernero.simplejson": "2026.2.3",
-		"com.cysharp.unitask": "2.5.11"
-	},
-	"keywords": [
-		"scripting"
-	],
-	"author": {
-		"name": "Praenaris",
-		"url": "https://www.praenaris.com/"
-	}
+  "name": "com.praenaris.toolset",
+  "version": "4.2.0",
+  "displayName": "ToolSet",
+  "unity": "6000.0",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "com.praenaris.devkit": "4.2.0",
+    "dev.tabernero.simplejson": "2026.2.3",
+    "com.cysharp.unitask": "2.5.11"
+  },
+  "keywords": [
+    "scripting"
+  ],
+  "author": {
+    "name": "Praenaris",
+    "url": "https://www.praenaris.com/",
+    "email": "contact@praenaris.com"
+  },
+  "hideInEditor": false,
+  "description": "A complementary package of Unity tools that expands the main package with advanced editor and runtime goodies.",
+  "documentationUrl": "https://github.com/Praenaris/Unity-ToolSet/blob/master/README.md",
+  "licensesUrl": "https://github.com/Praenaris/Unity-ToolSet/blob/master/LICENSE.md"
 }
