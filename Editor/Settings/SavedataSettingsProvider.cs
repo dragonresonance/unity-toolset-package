@@ -1,15 +1,24 @@
 #if UNITY_EDITOR
 
 
-using DragonResonance.Savedata;
+using DragonResonance.Editor.Building;
 using UnityEditor;
+
+#if ENABLE_SAVEDATA
+using DragonResonance.Savedata;
+#endif
 
 
 namespace DragonResonance.Editor.Settings
 {
+#if ENABLE_SAVEDATA
 	public class SavedataSettingsProvider : AScriptableSettingsProvider<SavedataSettings>
+#else
+	public class SavedataSettingsProvider : AScriptableSettingsProvider
+#endif
 	{
 		private const string SettingsPath = "Project/Praenaris/Savedata";
+		private const string BuildDefinition = "ENABLE_SAVEDATA";
 
 
 		#region Constructors
@@ -18,6 +27,22 @@ namespace DragonResonance.Editor.Settings
 			public static SettingsProvider Create() => new SavedataSettingsProvider(SettingsPath, SettingsScope.Project);
 
 			public SavedataSettingsProvider(string path, SettingsScope scope) : base(path, scope) { }
+
+		#endregion
+
+
+		#region Inheritables
+
+			protected override void OnBeforeGUI(string searchContext)
+			{
+				#if ENABLE_SAVEDATA
+					if (!EditorGUILayout.Toggle("Enabled", true))
+						BuildDefines.SetDefinitionState(BuildDefinition, false);
+				#else
+					if (EditorGUILayout.Toggle("Enabled", false))
+						BuildDefines.SetDefinitionState(BuildDefinition, true);
+				#endif
+			}
 
 		#endregion
 	}

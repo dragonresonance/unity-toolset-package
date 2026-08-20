@@ -1,48 +1,32 @@
 #if UNITY_EDITOR
 
 
-using DragonResonance.Editor.Building;
 using UnityEditor;
 
-#if ENABLE_SOUNDER
-using DragonResonance.Sounder;
-#endif
 
-
-namespace DragonResonance.Editor.Settings
+namespace DragonResonance.Editor.Building
 {
-#if ENABLE_SOUNDER
-	public class SounderSettingsProvider : AScriptableSettingsProvider<SounderSettings>
-#else
-	public class SounderSettingsProvider : AScriptableSettingsProvider
-#endif
+	[InitializeOnLoad]
+	public static class SavedataSystemToggler
 	{
-		private const string SettingsPath = "Project/Praenaris/Sounder";
-		private const string BuildDefinition = "ENABLE_SOUNDER";
+		private const string SUBSYSTEM_DEFINE = "_ENABLE_SAVEDATA";
 
 
 		#region Constructors
 
-			[SettingsProvider]
-			public static SettingsProvider Create() => new SounderSettingsProvider(SettingsPath, SettingsScope.Project);
-
-			public SounderSettingsProvider(string path, SettingsScope scope) : base(path, scope) { }
+			static SavedataSystemToggler() => BuildDefines.SetDefinition(SUBSYSTEM_DEFINE, false);
 
 		#endregion
 
 
-		#region Inheritables
+		#region Publics
 
-			protected override void OnBeforeGUI(string searchContext)
-			{
-				#if ENABLE_SOUNDER
-					if (!EditorGUILayout.Toggle("Enabled", true))
-						BuildDefines.SetDefinitionState(BuildDefinition, false);
-				#else
-					if (EditorGUILayout.Toggle("Enabled", false))
-						BuildDefines.SetDefinitionState(BuildDefinition, true);
-				#endif
-			}
+			#if ENABLE_SAVEDATA
+				[MenuItem("Subsystems/Savedata [ON]/Disable Savedata")]
+			#else
+				[MenuItem("Subsystems/Savedata [OFF]/Enable Savedata")]
+			#endif
+			public static void SwitchSubsystem() => BuildDefines.ToggleBuildDefinition(SUBSYSTEM_DEFINE);
 
 		#endregion
 	}

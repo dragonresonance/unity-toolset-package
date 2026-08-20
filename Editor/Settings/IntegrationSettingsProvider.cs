@@ -1,15 +1,24 @@
 #if UNITY_EDITOR
 
 
-using DragonResonance.Integration;
+using DragonResonance.Editor.Building;
 using UnityEditor;
+
+#if ENABLE_INTEGRATION
+using DragonResonance.Integration;
+#endif
 
 
 namespace DragonResonance.Editor.Settings
 {
+#if ENABLE_INTEGRATION
 	public class IntegrationSettingsProvider : AScriptableSettingsProvider<IntegrationSettings>
+#else
+	public class IntegrationSettingsProvider : AScriptableSettingsProvider
+#endif
 	{
 		private const string SettingsPath = "Project/Praenaris/Integration";
+		private const string BuildDefinition = "ENABLE_INTEGRATION";
 
 
 		#region Constructors
@@ -18,6 +27,22 @@ namespace DragonResonance.Editor.Settings
 			public static SettingsProvider Create() => new IntegrationSettingsProvider(SettingsPath, SettingsScope.Project);
 
 			public IntegrationSettingsProvider(string path, SettingsScope scope) : base(path, scope) { }
+
+		#endregion
+
+
+		#region Inheritables
+
+			protected override void OnBeforeGUI(string searchContext)
+			{
+				#if ENABLE_INTEGRATION
+					if (!EditorGUILayout.Toggle("Enabled", true))
+						BuildDefines.SetDefinitionState(BuildDefinition, false);
+				#else
+					if (EditorGUILayout.Toggle("Enabled", false))
+						BuildDefines.SetDefinitionState(BuildDefinition, true);
+				#endif
+			}
 
 		#endregion
 	}
