@@ -9,12 +9,12 @@ namespace DragonResonance.Editor.Building
 	[InitializeOnLoad]
 	public static class DisableSteamworksToggler
 	{
-		private const string DISABLE_STEAMWORKS_DEFINE = "_DISABLESTEAMWORKS";
+		private const string INTEGRATION_DEFINE = "_DISABLESTEAMWORKS";
 
 
 		#region Constructors
 
-			static DisableSteamworksToggler() => BuildDefines.SetupBuildDefinition(DISABLE_STEAMWORKS_DEFINE, false);
+			static DisableSteamworksToggler() => BuildDefines.SetDefinition(INTEGRATION_DEFINE, false);
 
 		#endregion
 
@@ -22,11 +22,11 @@ namespace DragonResonance.Editor.Building
 		#region Publics
 
 			#if !DISABLESTEAMWORKS
-				[MenuItem("Integration/Steamworks [ON]/Disable integration")]
+				[MenuItem("Integration/Steamworks [ON]/Disable integration module")]
 			#else
-				[MenuItem("Integration/Steamworks [OFF]/Enable integration")]
+				[MenuItem("Integration/Steamworks [OFF]/Enable integration module")]
 			#endif
-			public static void SwitchLogging() => BuildDefines.ToggleBuildDefinition(DISABLE_STEAMWORKS_DEFINE);
+			public static void SwitchIntegration() => BuildDefines.ToggleBuildDefinition(INTEGRATION_DEFINE);
 
 		#endregion
 	}
