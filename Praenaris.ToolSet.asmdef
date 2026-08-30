@@ -2,6 +2,7 @@
     "name": "Praenaris.ToolSet",
     "rootNamespace": "Praenaris",
     "references": [
+        "com.rlabrecque.steamworks.net",
         "Praenaris.DevKit",
         "Tabernero.SimpleJSON",
         "UniTask",
